@@ -36,7 +36,7 @@
 - VNC Viwer설치
 	- Window용 EXE x86/x64을 클릭해서 다운로드
 	- PuTTY에서 vncserver-virtual입력
-	
+		
 - 코드 작성
 	- nano test.c : nano를 통해 C 언어 코딩 파일 생성
 	- C++에서는 int main ()이지만 Putty에서는 void main()
@@ -72,7 +72,7 @@
 	- Warning은 분홍색 문구 -> 사용 O
 	
 ## 3일차(24.03.14)
-- 코드 작성
+- 자료구조
 	- 연결리스트(Linked List)
 		- 연결리스트 : 여러 개의 노드들이 순차적으로 연결된 형태를 갖는 자료구조
 		- 첫번째 노드를 head, 마지막 노드를 tail이라고 함
@@ -80,3 +80,16 @@
 		- node *head = (node*)malloc(sizeof(node));
 		- free("노드명")을 통해 동적할당된 메모리 영역 반환
 		- 삽입과 삭제가 용이하지만 탐색이 어려움
+		
+## 4일차(24.03.15)
+- 자료구조
+	- 연결리스트
+		- head 생성 함수 만들기
+		
+## 5일차(24.03.18)
+- 자료구조
+	- 스택(Stack)
+		- 선입후출(First In Last Out), 후입선출(Last In First Out)
+		- 활용 예시 : 실행취소(undo), 웹페이지 뒤로 가기
+	- 큐(Queue)
+		- 선입선출(First In First Out), 후입후출(Last In Last Out)
