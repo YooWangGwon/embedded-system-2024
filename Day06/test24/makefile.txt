@@ -1,0 +1,8 @@
+test: main.o func.o
+  gcc -o test main.o func.o
+
+main.o: main.c funch.h
+  gcc -c -o main.o main.c
+
+func.o: func.c funch.h
+  gcc -c -o func.o func.c

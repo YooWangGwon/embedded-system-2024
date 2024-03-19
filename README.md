@@ -93,3 +93,23 @@
 		- 활용 예시 : 실행취소(undo), 웹페이지 뒤로 가기
 	- 큐(Queue)
 		- 선입선출(First In First Out), 후입후출(Last In Last Out)
+		
+## 6일차(24. 03. 19)
+- 자료구조
+	- 큐(queue)
+		- enqueue(int data, queue* que)
+		- dequeue(queue* que)
+		- printQueue(queue* qUe)
+		
+	- 리눅스에서 makefile
+		```
+		test: main.o func.o
+		  gcc -o test main.o func.o
+
+		main.o: main.c funch.h (헤더파일은 목적코드 파일생성X)
+		  gcc -c -o main.o main.c
+
+		func.o: func.c funch.h
+		  gcc -c -o func.o func.c
+		```
+	
