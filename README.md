@@ -112,4 +112,137 @@
 		func.o: func.c funch.h
 		  gcc -c -o func.o func.c
 		```
+		
+## 7일차(24. 03. 20)
+- 자료구조
+	- 선택 정렬(Selection Sort)
+	
+	- 순차 탐색(Sequential Search)
+	
+	- 이진 탐색(Binary Search) : 이진탐색은 배열이 오름차순이나 내림차순으로 정렬되어 있어야함
+	```
+	int bSearch(int* ary, int size, int obj)
+	{
+		int first = 0;
+		int last = size;
+		int middle = 0;
+	
+		while(first <= last)
+		{
+			middle = (first + last)/2;
+			if(obj == ary[middle]) return middle;
+			else{
+			//if(obj < ary[middle]) first = middle + 1; // 내림차순일 경우
+			if(obj > ary[middle]) first = middle + 1; // 오름차순일 경우
+			else last = middle -1;
+			}
+		}
+	}
+	```
+- 네트워크 프로그래밍과 소켓의 이해
+	- 표준입출력함수 기반 파일 조작하기
+		- 파일 열기
+			- FILE * fopen(const char* a, const char* b);
+			- a : 파일의 이름
+			- b : 파일의 모드 
+			
+			- 파일의 모드
+				- r(read) : 읽기 모드. 파일이 없으면 에러 발생
+				- w(write) : 쓰기 모드. 파일이 없으면 새로 만들고 기존 파일이 있으면 이전의 내용을 지우고 새로 작성
+				- a(append) : 추가 쓰기 모드. 파일이 없으면 새로 만들고 기존 파일이 있으면 그 파일의 가장 뒤부터 작성
+				- r+ : 읽기와 쓰기 모드로 파일 열기. 파일이 없으면 에러 발생
+				- w+ : 읽기와 쓰기 모드로 파일 열기. 파일이 없으면 새로 만들고 기존 파일이 있으면 이전의 내용을 지우고 새로 작성
+				- a+ : 추가 쓰기 모드로 파일 열기. 파일이 없으면 새로 만들고 기존 파일이 있으면 그 파일의 가장 뒤부터 작성
+			
+		- 파일 닫기
+			- fclose(const char*a)
+			- a : 파일의 이름
+			
+		- 파일에 출력(입력)
+			- int fprintf(FILE* restrict stream, const char *restrict format-string, argument-list)
+			- restrict stream : 파일 포인터
+			- format string : 파일에 출력(입력)할 데이터의 형태
+			- argument-list : 출력(입력)할 데이터 또는 데이터의 주소
+			
+		- 파일에서 읽기
+			- int fscanf(FILE* restrict stream, const char *restrict format string, argument-list)
+			- restrict stream : 파일 포인터
+			- format string : 읽어올 데이터의 형태
+			- argument-list : 읽어온 데이터를 담을 곳
+			
+	- 리눅스 기반 파일 조작하기
+		- 파일 디스크립터(File Descriptor)
+		    - 시스템으로부터 할당 받은 파일 또는 소켓에 부여된 정수
+			- 일반적으로 파일과 소켓은 생성의 과정을 거쳐야 파일 디스크립터가 할당
+			- 0 : 표준입력(Standard Input)
+			- 1 : 표준출력(Standard Output)
+			- 2 : 표준예러(Standard Error)
+			
+		- 파일 열기
+			- int open(const char *path, int flag, mode_t mode);
+			- path : 파일 이름을 나타내는 문자열의 주소 값 전달
+			- flag : 파일의 오픈 모드 정보 전달
+			- mode : 파일의 권한 설정
+			- 성공시 파일 디스크립터, 실패 시 -1 반환
+			
+			- 파일의 오픈 모드
+				- O_CREAT : 필요하면 파일을 생성
+				- O_TRUNC : 기존 데이터 전부 삭제
+				- O_APPEND : 기존데이터를 보존하고, 뒤에 이어서 저장
+				- O_RDONLY : 읽기 전용으로 파일 오픈
+				- O_WRONLY : 쓰기 전용으로 파일 오픈
+				- O_RDWR : 읽기 쓰기 겸용으로 파일 오픈
+				
+			- 파일 권한
+				- 1 : 실행, 2 : 쓰기, 4 : 읽기
+				- 000X(넷째 자리) : 기타사용자, 00X0(셋째 자리) : 그룹, 0X00(둘째 자리) : 사용자
+				- S_IRWXU, S_IRUSR, S_IWUSR, S_IXUSR : 사용자에게 각각 전체권한, 읽기 권한, 쓰기 권한, 실행 권한 부여
+				- S_IRWXG, S_IRGRP, S_IWGRP, S_IXUSR : 그룹에게 각각 전체권한, 읽기 권한, 쓰기 권한, 실행 권한 부여
+				- S_IRWXO, S_IROTH, S_IWOTH, S_IXOTH : 기타 사용자에게 각각 전체권한, 읽기 권한, 쓰기 권한, 실행 권한 부여
+			
+		- 파일 닫기
+			- int close(int fd);
+			- fd : 닫고자하는 파일 또는 소켓의 파일 디스크립터 전달
+			- 성공시 O, 실패시 -1
+			
+		- 파일에 데이터 쓰기
+			- ssize_t write(int fd, const void * buf, size_t nbytes);
+			- fd : 파일 디스크립터 
+			- buf : 전송할 데이터가 저장된  버퍼의 주소 값 전달
+			- nbytes : 전송할 데이터의 바이트 수
+			- 성공 시 전달한 바이트 수, 실패시 -1 반환
+		
+		- 파일에 저장된 데이터 읽기
+			- ssize_t read(int fd, void *buf, size_t nbyte);
+			- fd : 데이터 수신 대상을 나타내는 파일 디스크립터 전달
+			- buf : 수신한 데이터를 저장할 버퍼의 주소 값 전달
+			- nbytes : 수신할 최대 바이트 수 전달
+			- 성공 시 수신한 바이트 수(단 파일의 끝을 만나면 O), 실패시 -1 반환)
+		
+## 8일차(24.03.21)
+
+- mini project 1
+	- 아이디와 비밀번호를 입력하여 성공하면 파일을 열어서 파일 안의 내용을 출력
+
+- mini project 2
+	- 도서 등록, 출력 기능 추가
+	- 도서를 제목, 저자, 출판사를 기준으로 검색하여 조회하는 기능 추가
+	- 도서를 번호로 선택하여 삭제하는 기능 추가
+
+## 9일차(24.03.22)
+
+- mini project 2
+	- 도서 검색 후 대여 기능 추가
+	- 대여한 도서 선택 반납 및 전체 반납 기능 추가
+	- 도서 전제 삭제 기능 추가
+	
+## 10일차(24.03.25)
+
+- mini project 2
+	- 도서 등록 함수에서 오류 발생시 함수 종료
+	- 단순 로그인 기능 추가
+	- 회원가입 시 별도로 생성된 파일에 아이디와 비밀번호 저장하는 기능 추가
+	- 로그인 시 별도로 생성된 파일에 저장된 아이디와 비밀번호를 불러와서 로그인에서 사용하는 기능 추가
+	- 파일 선택 삭제 기능 보완(선택 삭제 중 중간 삭제 및 마지막 도서 삭제)
+	
 	
